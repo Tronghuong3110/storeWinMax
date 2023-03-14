@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="persistence-data">  <!-- tên file định nghĩa trong class config  -->
+		<class>com.laptrinhjavaweb.entity.UserEntity</class>  <!-- đường dẫn trỏ tới class entity cần mapping -->
+		<class>com.laptrinhjavaweb.entity.SliderEntity</class>
+		<class>com.laptrinhjavaweb.entity.TypeEntity</class>
+		<class>com.laptrinhjavaweb.entity.ProductEntity</class>
+		<class>com.laptrinhjavaweb.entity.CategoryEntity</class>
+		<class>com.laptrinhjavaweb.entity.RoleEntity</class>
+	</persistence-unit>
+</persistence>

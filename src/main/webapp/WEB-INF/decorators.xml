@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir = "/decorators"> <!-- trỏ vào folder decorators để apply giao diện parent  -->
+	
+	<!-- apply giao dien web -->
+	<decorator name = "trang chu" page = "web.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+	<!-- apply giao dien admin -->
+	<decorator name = "home" page = "admin.jsp">
+		<pattern>/admin*</pattern>
+	</decorator>
+	
+	<!-- apply giao diện đăng nhập -->
+	<decorator name = "login" page = "login.jsp">
+		<pattern>/dang-nhap</pattern>
+	</decorator>
+	
+	<!-- apply giao diện đăng nhập -->
+	<decorator name = "SignUp" page = "signup.jsp">
+		<pattern>/dang-ky</pattern>
+	</decorator>
+</decorators>
