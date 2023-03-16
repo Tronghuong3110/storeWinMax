@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Danh sách sản phẩm</title>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -34,8 +34,21 @@
 			<!-- <h1 class="my-4">Sản phẩm</h1> -->
 			<h2 class="card-header bg-primary text-white text-uppercase" style="font-size: 1.5rem !important;"><i class="fa fa-list"></i> Sản Phẩm</h2>
 			<!-- danh sách tên các sản phẩm -->
-			<div class="list-group">
+			<div class="list-group list">
 			</div>
+	
+			<!-- Search -->
+           <div class="list-group">
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" />
+                        <label class="form-label" for="form1">Search</label>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+           </div>
 			
 		</div>
 		
@@ -60,7 +73,7 @@
 				html += "<c:url value = '/san-pham/" + item.code;
 				html += "'/>" + '" class="list-group-item">' + item.name + '</a>'
 			})
-			$('.list-group').html(html);
+			$('.list').html(html);
 		}
 	})
 	
@@ -76,9 +89,9 @@
            $.each($(data), function (i, item) {
         	    render +='<div class="col-lg-4 col-md-6 mb-4">';
         	    render +=     '<div class="card h-100">'; //  
-                render +=         '<a href="/chi-tiet-san-pham?id=' + item.product_id + '&catrgoryid=' + item.category_id +  '" title="View Product"><img class="card-img-top" src="' + "<c:url value = '/template/web/images/products/" + item.img + "'/>" + '" alt="Card image cap"></a>'; // anh
+                render +=         '<a href="/chi-tiet-san-pham?id=' + item.product_id + '&categoryid=' + item.category_id +  '" title="View Product"><img class="card-img-top" src="' + "<c:url value = '/template/web/images/products/" + item.img + "'/>" + '" alt="Card image cap"></a>'; // anh
                 render +=         '<div class="card-body">';
-                render +=           '<h4 class="card-title"><a href="/chi-tiet-san-pham?id=' + item.product_id + '&catrgoryid=' + item.category_id + '" title="View Product" style="font-size: 1.27rem">' + item.name_product + ' ' + item.size + ' ' + item.lo_ren + ' ' + item.shape + '</a></h4>'; // ten                
+                render +=           '<h4 class="card-title"><a href="/chi-tiet-san-pham?id=' + item.product_id + '&categoryid=' + item.category_id + '" title="View Product" style="font-size: 1.27rem">' + item.name_product + ' ' + item.size + ' ' + item.lo_ren + ' ' + item.shape + '</a></h4>'; // ten                
                 render +=              '<h5>' + item.price +'</h5>';
                 render +=              '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>'
                 render +=         ' </div>';

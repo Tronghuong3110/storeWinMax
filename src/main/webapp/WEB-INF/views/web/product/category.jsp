@@ -10,11 +10,11 @@
       	<c:forEach var = "item" items="${Products }" varStatus="loop">
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
-								<a href="/chi-tiet-san-pham?id=${item.product_id }&category=${item.category_id}"><img class="card-img-top"
+								<a href="/chi-tiet-san-pham?id=${item.product_id }&categoryid=${item.category_id}"><img class="card-img-top"
 									src="<c:url value = '/template/web/images/products/${item.img }' />" alt=""></a>
 								<div class="card-body">
 									<h4 class="card-title">
-										<a href="/chi-tiet-san-pham?id=${item.product_id }&category=${item.category_id}">${item.name_product } ${item.size } ${item.lo_ren } ${item.shape }</a> 
+										<a href="/chi-tiet-san-pham?id=${item.product_id }&categoryid=${item.category_id}">${item.name_product } ${item.size } ${item.lo_ren } ${item.shape }</a> 
 										
 									</h4>
 									<h5>${item.price }</h5>

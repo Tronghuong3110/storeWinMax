@@ -230,16 +230,18 @@
 			return decodeURI(results[1]) || 0;
 		}
 
-		var id = $.urlParam('id'); // id product
-		var categoryId = $.urlParam('catrgoryid'); // id category of product
-
-		// call Api get list product by category
+		var productId = $.urlParam('id'); // id product
+		var categoryId = $.urlParam('categoryid'); // id category of product
+		var userId = $('.js-infor').data('user_id'); // id of user
+		
+		// render danh sach san pham lien quan
 		$.ajax({
 			type : "GET",
 			url : "${urlApiListProduct}?categoryId=" + categoryId,
 			dataType : "Json",
 			contentType: "application/json; charset=utf-8",
 			success : function(data) {
+				userId = $('.js-infor').data('user_id');
 				// danh sách sản phẩm liên quan của sản phẩm này
 				html = '<div class="carousel-item active">';
 					html += 	'<div class="row">';
@@ -264,12 +266,14 @@
 					html += 					'<li class="list-inline-item"><i class="fa fa-star-o"></i></li>';
 					html += 				'</ul>';
 					html += 			'</div>';
-					html += 			'<button class="btn btn-primary js-btn-add">Thêm vào giỏ hàng</button>';
+					html += 			'<button class="btn btn-primary" onclick = "addProduct( ' + item.product_id + ", 1, " + userId + ')">Thêm vào giỏ hàng</button>';
+										//console.log('addProduct( ' + item.product_id + ", 1, " + userId + ')');
 					html += 		'</div>';
 					html += 	'</div>';
 					html += '</div>';
 					if((i + 1) % 4 == 0 || i + 1 == data.length) {
-						console.log(i);
+						//console.log(i);
+						//console.log(userId)
 						html += 	'</div>';
 						html += '</div>';
 						if(i + 1 < data.length) {
@@ -286,10 +290,10 @@
 			}
 		})
 
-		// call API render detail product
+		// thong tin chi tiet san pham
 		$.ajax({
 			type : "GET",
-			url : "${urlApiDetail}?id=" + id,
+			url : "${urlApiDetail}?id=" + productId,
 			dataType : "Json",
 			success : function(data) {
 				// render ảnh
@@ -308,30 +312,28 @@
 		// thêm sản phẩm vào giỏ hàng
 		$(".js-btn-add").click(function() {
 			var quantity = $("#inputQuantity").val();
-			var productId = id;
-			var userId = $('.js-infor').data('user_id');
+			addProduct(productId, quantity, userId)
+		})
+
+		// call api add product to cart
+		function addProduct(id, quantity, userId) {
 			if(userId == undefined) {
 				 window.location.href = "/dang-nhap?message";
 			}
 			else {
-				addProduct(productId, quantity, userId)
+				$.ajax({
+					type : 'POST',
+					url : "${urlAddProduct}?productId=" + id + "&quantity=" + quantity + "&userId=" + userId,
+					contentType : 'application/json',
+					dataType : 'json',
+					success : function(data) {
+						alert("Thêm sản phẩm thành công")
+					},
+					error: function () {
+						alert("Thêm sản phẩm thất bại")
+					}
+				})
 			}
-		})
-
-		// call api add product to cart
-		function addProduct(productId, quantity, userId) {
-			$.ajax({
-				type : 'POST',
-				url : "${urlAddProduct}?productId=" + productId + "&quantity=" + quantity + "&userId=" + userId,
-				contentType : 'application/json',
-				dataType : 'json',
-				success : function(data) {
-					alert("Thêm sản phẩm thành công")
-				},
-				error: function () {
-					alert("Thêm sản phẩm thất bại")
-				}
-			})
 		}
 	</script>
 </body>

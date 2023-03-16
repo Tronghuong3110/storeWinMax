@@ -1,8 +1,5 @@
 package com.laptrinhjavaweb.converter;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.laptrinhjavaweb.dto.ProductDto;
 import com.laptrinhjavaweb.entity.ProductEntity;
 
@@ -13,7 +10,6 @@ public class ProductConverter {
 	
 	public static ProductDto toDTO(ProductEntity productEntity) {
 		ProductDto product = new ProductDto();
-		product.setId_type(productEntity.getType().getId());
 		product.setImg(productEntity.getType().getImg());
 		product.setLo_ren(productEntity.getType().getLo_Ren());
 		product.setName_product(productEntity.getName_product());

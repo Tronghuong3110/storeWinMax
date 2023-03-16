@@ -2,25 +2,16 @@ package com.laptrinhjavaweb.dto;
 
 public class ProductDto{
 	private Long id_type;
-	
 	private Long product_id;
-	
 	private Long category_id;
-	
 	private String name_product;
-	
 	private Float price;
-	
 	private String size;
-	
 	private String img;
-	
 	private String thumbnail;
-	
 	private String lo_ren;
-	
 	private String shape;
-
+	
 	public Long getId_type() {
 		return id_type;
 	}

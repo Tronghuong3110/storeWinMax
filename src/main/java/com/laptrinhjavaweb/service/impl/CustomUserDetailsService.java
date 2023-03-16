@@ -25,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// tim user theo userName
 		UserEntity user = userRepository.findOneByUserNameAndStatus(username, SystemConstant.ACTIVE_STATUS);
-		
 		if(user == null) {
 			throw new UsernameNotFoundException("Tài khoản hoặc mật khẩu không đúng");
 		}

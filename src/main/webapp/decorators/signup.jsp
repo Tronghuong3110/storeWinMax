@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title><dec:title default="Đăng ký" /></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <style>
 form {
 	margin: 0px 10px;
@@ -49,8 +50,11 @@ h2 {
 		<dec:body />
 	</div>
 
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--  	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+	
+ 	<script type="text/javascript"
+		src="<c:url value = '/template/web/vendor/jquery/jquery.min.js'/>"></script> 
+	<script type="text/javascript" src="<c:url value = '/template/web/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 </body>
 </html>

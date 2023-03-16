@@ -36,10 +36,6 @@ public class CartApi {
 	@GetMapping("/api/cart")
 	public List<CartItemDto> getListProductOfCartOfUser(@RequestParam Long userId) {
 		List<CartItemDto> list = cartService.getListCartItemOfUser(userId);
-//		return list == null ? null : list;
-		if(list == null) {
-			return new ArrayList<>();
-		}
-		return list;
+		return list == null ? new ArrayList<>() : list;
 	}
 }

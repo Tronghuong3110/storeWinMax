@@ -34,10 +34,13 @@
 							<div class="alert alert-danger" style = "width: 100%">Tài khoản hoặc mật khẩu không đúng</div>
 						</c:if>
 						<c:if test="${param.accessDenied != null}">
-							<div class="alert alert-danger" style = "width: 100%">Bạn không được truy cập vào đường link này</div>
+							<div class="alert alert-danger" style = "width: 100%">Bạn không có quyền truy cập</div>
 						</c:if>
-						<c:if test="${param.message != null}">
-							<div class="alert alert-danger" style = "width: 100%">Bạn phải đăng nhập</div>
+						<c:if test="${param.message == 'vuilongdangnhap'}">
+							<div class="alert alert-danger" style = "width: 100%">Vui lòng đăng nhập để thêm sản phẩm</div>
+						</c:if>
+						<c:if test="${param.message == 'dangkythanhcong'}">
+							<div class="alert alert-success" style = "width: 100%">Đăng ký thành công, xin mời đăng nhập</div>
 						</c:if>
 					</div>
 
@@ -63,7 +66,7 @@
 					</div>
 
 						<div class="row mb-3 px-3">
-							<a href = "<c:url value = '/trang-chu'/>" class = "btn-blue text-center btn">Trở về</a>
+							<a href = "<c:url value = '/trang-chu'/>" class = "btn-blue text-center btn">Trang chủ</a>
 							<button type="submit" class="btn btn-blue text-center"  style="position: absolute; right: 26px;">Đăng
 								nhập</button>
 						</div>

@@ -9,4 +9,7 @@ import com.laptrinhjavaweb.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long>{
 	UserEntity findOneByUserNameAndStatus(String userName, Integer status);
 	UserEntity findOneByIdAndStatus(Long userId, Integer status);
+	
+	 Boolean existsByEmail(String email);
+	 Boolean existsByUserName(String username);
 }

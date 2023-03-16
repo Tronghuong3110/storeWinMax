@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -37,7 +39,10 @@ public class UserEntity {
 	private Integer status; 
 	
 	// n - n voi role
-	@ManyToMany(mappedBy = "listUser", fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role",
+			 joinColumns = @JoinColumn(name = "user_id"),
+			 inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 
 	// cascade = CascadeType.ALL tự động lưu thay đổi của cart khi user thay đổi
