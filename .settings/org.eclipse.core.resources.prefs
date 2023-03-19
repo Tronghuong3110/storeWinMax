@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/laptrinhjavaweb/api/CartApi.java=UTF-8
-encoding//src/main/java/com/laptrinhjavaweb/api/ProductApi.java=UTF-8
+encoding//src/main/java/com/laptrinhjavaweb/api/web/CartApi.java=UTF-8
+encoding//src/main/java/com/laptrinhjavaweb/api/web/ProductApi.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/config/JpaConfig.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/controller/web/ProductController.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/entity/CategoryEntity.java=UTF-8

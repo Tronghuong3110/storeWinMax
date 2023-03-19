@@ -1,4 +1,4 @@
-package com.laptrinhjavaweb.api;
+package com.laptrinhjavaweb.api.web;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -249,11 +249,11 @@
 					html += '<div class="col-sm-3">';
 					html += 	'<div class="thumb-wrapper">';
 					html += 		'<div class="img-box">';
-					html += 			'<img style="object-fit: cover; width: 208px;" src="' + "<c:url value = '/template/web/images/products/" + item.img + "' />" + '" class="img-fluid" alt="" />'
+					html += 			'<img style="object-fit: cover; width: 208px;" src="' + "<c:url value = '/template/web/images/products/" + item.type.img + "' />" + '" class="img-fluid" alt="" />'
 					html += 		'</div>';
 					html += 		'<div class="thumb-content">';
-					html += 			'<h4>' + item.name_product + " " + item.size + '</br>' + 
-												item.lo_ren + " " + item.shape + '</h4>';
+					html += 			'<a href = "" ><h4>' + item.name + " " + item.size + '</br>' + 
+												item.type.loRen + " " + item.type.shape + '</h4> </a>';
 					html += 			'<p class="item-price">';
 					html += 				'<strike>$25.00</strike>' +  ' <span>' + item.price + '</span>';
 					html += 			'</p>';
@@ -266,7 +266,7 @@
 					html += 					'<li class="list-inline-item"><i class="fa fa-star-o"></i></li>';
 					html += 				'</ul>';
 					html += 			'</div>';
-					html += 			'<button class="btn btn-primary" onclick = "addProduct( ' + item.product_id + ", 1, " + userId + ')">Thêm vào giỏ hàng</button>';
+					html += 			'<button class="btn btn-primary" onclick = "addProduct( ' + item.id + ", 1, " + userId + ')">Thêm vào giỏ hàng</button>';
 										//console.log('addProduct( ' + item.product_id + ", 1, " + userId + ')');
 					html += 		'</div>';
 					html += 	'</div>';
@@ -297,13 +297,13 @@
 			dataType : "Json",
 			success : function(data) {
 				// render ảnh
-				var img = "<c:url value = '/template/web/images/products/" + data.img + "'/>";
+				var img = "<c:url value = '/template/web/images/products/" + data.type.img + "'/>";
 				$('.js-img').attr('src', img);
 				// render name san pham
-				$('.js-name').html(data.name_product);
+				$('.js-name').html(data.name);
 				$('.js-size').html(data.size);
-				$('.js-loren').html(data.lo_ren);
-				$('.js-shape').html(data.shape);
+				$('.js-loren').html(data.type.loRen);
+				$('.js-shape').html(data.type.shape);
 				// render price product
 				$('.js-price').html(data.price)
 			}
@@ -318,7 +318,7 @@
 		// call api add product to cart
 		function addProduct(id, quantity, userId) {
 			if(userId == undefined) {
-				 window.location.href = "/dang-nhap?message";
+				 window.location.href = "/dang-nhap?message=vuilongdangnhap";
 			}
 			else {
 				$.ajax({

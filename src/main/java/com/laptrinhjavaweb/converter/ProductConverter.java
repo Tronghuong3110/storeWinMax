@@ -5,24 +5,30 @@ import com.laptrinhjavaweb.entity.ProductEntity;
 
 public class ProductConverter {
 	
-//	@Autowired
-//	private static ModelMapper modelMapper;
-	
-	public static ProductDto toDTO(ProductEntity productEntity) {
+	public static ProductDto toDTO(ProductEntity entity) {
 		ProductDto product = new ProductDto();
-		product.setImg(productEntity.getType().getImg());
-		product.setLo_ren(productEntity.getType().getLo_Ren());
-		product.setName_product(productEntity.getName_product());
-		product.setPrice(productEntity.getPrice());
-		product.setProduct_id(productEntity.getId());
-		product.setShape(productEntity.getType().getName());
-		product.setSize(productEntity.getSize());
-		product.setCategory_id(productEntity.getCategoryEntity().getId());
+		product.setId(entity.getId());
+		product.setName(entity.getName_product());
+		product.setPrice(entity.getPrice());
+		product.setSize(entity.getSize());
+		product.setType(TypeConverter.toDto(entity.getType()));
+		product.setCategory(CategoryConverter.toDto(entity.getCategoryEntity()));
 		return product;
 	}
 	
-//	public static ProductDto convertToDto(ProductEntity productEntity) {
-//		ProductDto product = modelMapper.map(productEntity, ProductDto.class);
-//	    return product;
-//	}
+	public static ProductEntity toEntity(ProductDto dto) {
+		ProductEntity entity = new ProductEntity();
+		entity.setName_product(dto.getName());
+		entity.setPrice(dto.getPrice());
+		entity.setSize(dto.getSize());
+		return entity;
+	}
+	
+	public static ProductEntity updateEntity(ProductEntity entity, ProductDto dto) {
+		entity.setName_product(dto.getName());
+		entity.setSize(dto.getSize());
+		entity.setPrice(dto.getPrice());
+		return entity;
+	}
+	
 }

@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,17 +44,17 @@ public class ProductEntity {
 	private String thumbnail;
 	
 	// kết nối với n - 1 voi category
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_Id")
 	private CategoryEntity categoryEntity;
 	
 	//ket noi n - 1 voi typeEntity
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "type_id")
 	private TypeEntity type;
 	
 	// 1 - 1 voi cart item - cart item dai dien cho 1 san pham trong gio hang
-	@OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private CartItem cartItem;
 	
 	public String getName_product() {

@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laptrinhjavaweb.dto.ProductDto;
 import com.laptrinhjavaweb.paging.PageInfor;
 import com.laptrinhjavaweb.service.IProductService;
 
-@Controller(value = "ProductControllerOfAdmin")
+@RestController(value = "ProductControllerOfAdmin")
 public class ProductController {
 	
 	@Autowired
@@ -30,6 +30,12 @@ public class ProductController {
 		PageInfor pageInfor = new PageInfor(limit, page, totalItem);
 		mav.addObject("Products", products);
 		mav.addObject("page", pageInfor);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.GET)
+	public ModelAndView editPage() {
+		ModelAndView mav = new ModelAndView("/admin/product/edit");
 		return mav;
 	}
 }

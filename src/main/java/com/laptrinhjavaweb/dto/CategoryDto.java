@@ -1,9 +1,11 @@
 package com.laptrinhjavaweb.dto;
 
 public class CategoryDto {
+	
 	private Long id;
 	private String name;
 	private String code;
+	
 	public Long getId() {
 		return id;
 	}

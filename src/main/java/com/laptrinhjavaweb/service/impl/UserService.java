@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.UserDto;
-import com.laptrinhjavaweb.entity.ProductEntity;
 import com.laptrinhjavaweb.entity.RoleEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
 import com.laptrinhjavaweb.exception.APIException;

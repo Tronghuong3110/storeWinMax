@@ -5,7 +5,6 @@ public class CartItemDto {
 	private Long quantity;
 	private Double total;
 	private ProductDto product;
-//	private String img;
 	public Long getId() {
 		return id;
 	}
@@ -30,11 +29,5 @@ public class CartItemDto {
 	public void setProduct(ProductDto product) {
 		this.product = product;
 	}
-//	public String getImg() {
-//		return img;
-//	}
-//	public void setImg(String img) {
-//		this.img = img;
-//	}
 	
 }

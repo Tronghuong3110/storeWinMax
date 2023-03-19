@@ -13,9 +13,7 @@ import com.laptrinhjavaweb.entity.CartItem;
 public interface CartItemRepository extends JpaRepository<CartItem, Long>{
 	CartItem findByCart_IdAndProduct_Id(Long cart_id, Long product_Id);
 	List<CartItem> findAllByCart_Id(Long cartId);
-	
-//	@Query(value = "delete from cartItem where id = ?1", nativeQuery = true)
-//	void deleteCartItem(Long cartItemId);
+	List<CartItem> findAllByProduct_Id(Long productId);
 	
 	@Modifying
 	@Query(value = "delete from cartItem where id = ?1", nativeQuery = true)

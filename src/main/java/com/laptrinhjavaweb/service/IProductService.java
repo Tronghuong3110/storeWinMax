@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.laptrinhjavaweb.dto.ProductDto;
-import com.laptrinhjavaweb.entity.ProductEntity;
 
 public interface IProductService {
 	List<ProductDto> getData();
@@ -15,4 +14,6 @@ public interface IProductService {
 	List<ProductDto> findByCategoryCode(String code);
 	List<ProductDto> findByCategoryId(Long id);
 	List<ProductDto> findAll();
+	void deleteProduct(Long productId);
+	void updateOrCreateProduct(ProductDto product, Long categoryId, Long typeId);
 }

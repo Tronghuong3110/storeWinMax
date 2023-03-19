@@ -3,6 +3,7 @@ package com.laptrinhjavaweb.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,33 +20,36 @@ public class TypeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "shape", columnDefinition = "nvarchar(25)", nullable = false)
-	private String name;
+	@Column(name = "shape", columnDefinition = "nvarchar(150)", nullable = false)
+	private String shape;
 	
 	@Column(name = "lo_ren", length = 20)
-	private String lo_Ren;
+	private String loRen;
 	
 	@Column(name = "img")
 	private String img;
 	
-	// ket noi 1 - n voi productEntity
-	@OneToMany(mappedBy = "type")
-	private List<ProductEntity> products = new ArrayList<>();
+	@Column(name = "code")
+	private String code;
 	
-	public String getName() {
-		return name;
+	// ket noi 1 - n voi productEntity
+	@OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+	private List<ProductEntity> products = new ArrayList<>();
+
+	public String getShape() {
+		return shape;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShape(String shape) {
+		this.shape = shape;
 	}
 
-	public String getLo_Ren() {
-		return lo_Ren;
+	public String getLoRen() {
+		return loRen;
 	}
 
-	public void setLo_Ren(String lo_Ren) {
-		this.lo_Ren = lo_Ren;
+	public void setLoRen(String loRen) {
+		this.loRen = loRen;
 	}
 
 	public String getImg() {
@@ -66,6 +70,14 @@ public class TypeEntity {
 
 	public void setProducts(List<ProductEntity> products) {
 		this.products = products;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

@@ -5,10 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<head>
-
-</head>
-
 <body>
 	<div class="main-content">
 		<form action="<c:url value='/admin/product/list'/>" id="formSubmit" method="get">
@@ -34,12 +30,6 @@
 													<i class="fa fa-plus-circle bigger-110 purple"></i>
 											</span>
 											</a>
-											<button id="btnDelete" type="button"
-												class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
-												data-toggle="tooltip" title='Xóa bài viết'>
-												<span> <i class="fa fa-trash-o bigger-110 pink"></i>
-												</span>
-											</button>
 										</div>
 									</div>
 								</div>
@@ -60,21 +50,36 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="item" items="${Products }">
+												<c:forEach var="item" items="${Products}">
 													<tr>
-														<td class="tdItem">${item.product_id }</td>
-														<td class="tdItem">${item.name_product }</td>
+														<td class="tdItem">${item.id }</td>
+														<td class="tdItem">${item.name }</td>
 														<td class="tdItem">${item.size }</td>
-														<td class="tdItem">${item.lo_ren }</td>
-														<td class="tdItem">${item.shape }</td>
+														<td class="tdItem">${item.type.loRen }</td>
+														<td class="tdItem">${item.type.shape }</td>
 														<td style="width: 374px;"><img
 															style="object-fit: cover; width: 100%;"
-															src="<c:url value = '/template/web/images/products/${item.img }' />"
-															alt="Ảnh sản phầm ${item.name_product}"></td>
-														<td><a class="btn btn-sm btn-primary btn-edit"
-															data-toggle="tooltip" title="Cập nhật bài viết" href='#'><i
-																class="fa fa-pencil-square-o" aria-hidden="true"></i> </a></td>
+															src="<c:url value = '/template/web/images/products/${item.type.img}' />"
+															alt="Ảnh sản phầm ${item.name}"></td>
+														<td style=" display: grid;
+																	justify-content: space-around;
+																	border: none;
+																	transform: translateY(55%);">
+															<a class="btn btn-sm btn-primary btn-edit"
+																data-toggle="tooltip" title="Chỉnh sửa sản phẩm" href="<c:url value = '/admin/product/edit?productid=${item.id}'/> " style="margin-bottom: 5px;">
+																<i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+															</a>
+
+															<button id="btnDelete" type="button"
+																	data-productId = ${item.id}
+																	class="btn btn-sm btn-primary btn-edit"
+																	data-toggle="tooltip" title='Xóa sản phẩm'
+																	onclick="deleteProduct(${item.id})">
+																	<i class="fa fa-trash-o bigger-110 pink"  style="color: #fff !important;"></i>
+															</button>
+														</td>
 													</tr>
+												
 												</c:forEach>
 											</tbody>
 										</table>
@@ -110,6 +115,41 @@
             console.info(page + ' (from event listening)');
         });
     });
+
+	// get danh sach category va them vao localStorage
+	getData("/api/category", "categories")
+	getData("/api/type", "types")
+
+	function getData(url, name) {
+		$.ajax({
+			type: "GET",
+			url: url,
+			contentType: "application/json",
+			dataType: "json",
+			success: function(data) {
+				localStorage.setItem(name, JSON.stringify(data));
+			},
+			error: function() {
+				alert("Lỗi set value vào local Strorage roi !!")
+			}
+		})
+	}
+
+	function deleteProduct(productId) {
+		$.ajax({
+			type: "DELETE",
+			url: "/api/admin/product/detail?productId=" + productId,
+			success: function() {
+				alert("Xóa sản phẩm thành công")
+				window.location.href = "/admin/product/list?page=1&limit=3";
+			},
+			error: function() {
+				alert("Xóa sản phẩm không thành công");
+				window.location.href = "/admin/product/list?page=1&limit=3";
+			}
+		})
+		// alert(productId)
+	}
 </script>
 </body>
 </html>

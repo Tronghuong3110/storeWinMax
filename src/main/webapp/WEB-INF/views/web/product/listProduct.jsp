@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Danh sách sản phẩm</title>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -17,14 +17,25 @@
 
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-6">
             <nav aria-label="breadcrumb"  style="margin-top: 12px;">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb" style="background-color: #fff !important;">
                     <li class="breadcrumb-item"><a href="/trang-chu">Trang chủ</a></li>
                     <li class="breadcrumb-item"><a href="/danh-sach-san-pham">Sản Phẩm</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Danh Sách Sản Phẩm</li>
                 </ol>
             </nav>
+        </div>
+        <div class="col-6">
+            <!-- Search -->
+            <div class="input-group" style="margin-top: 18px;">
+                <div class="form-outline" style="width: 91%; margin-right: 3px;">
+                    <input type="search" id="form1" class="form-control" placeholder="Tên sản phẩm..."/>
+                </div>
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div> 
@@ -37,18 +48,6 @@
 			<div class="list-group list">
 			</div>
 	
-			<!-- Search -->
-           <div class="list-group">
-                <div class="input-group">
-                    <div class="form-outline">
-                        <input type="search" id="form1" class="form-control" />
-                        <label class="form-label" for="form1">Search</label>
-                    </div>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-           </div>
 			
 		</div>
 		
@@ -68,6 +67,7 @@
 		dataType: "JSON",
 		contentType: "application/json",
 		success: function(data) {
+            localStorage.setItem("categories", data)
 			$.each($(data), function(i, item) {
 				html += '<a href="';
 				html += "<c:url value = '/san-pham/" + item.code;
@@ -89,9 +89,9 @@
            $.each($(data), function (i, item) {
         	    render +='<div class="col-lg-4 col-md-6 mb-4">';
         	    render +=     '<div class="card h-100">'; //  
-                render +=         '<a href="/chi-tiet-san-pham?id=' + item.product_id + '&categoryid=' + item.category_id +  '" title="View Product"><img class="card-img-top" src="' + "<c:url value = '/template/web/images/products/" + item.img + "'/>" + '" alt="Card image cap"></a>'; // anh
+                render +=         '<a href="/chi-tiet-san-pham?id=' + item.id + '&categoryid=' + item.category.id +  '" title="View Product"><img class="card-img-top" src="' + "<c:url value = '/template/web/images/products/" + item.type.img + "'/>" + '" alt="Card image cap"></a>'; // anh
                 render +=         '<div class="card-body">';
-                render +=           '<h4 class="card-title"><a href="/chi-tiet-san-pham?id=' + item.product_id + '&categoryid=' + item.category_id + '" title="View Product" style="font-size: 1.27rem">' + item.name_product + ' ' + item.size + ' ' + item.lo_ren + ' ' + item.shape + '</a></h4>'; // ten                
+                render +=           '<h4 class="card-title"><a href="/chi-tiet-san-pham?id=' + item.id + '&categoryid=' + item.category.id + '" title="View Product" style="font-size: 1.27rem">' + item.name + ' ' + item.size + ' ' + item.type.loRen + ' ' + item.type.shape + '</a></h4>'; // ten                
                 render +=              '<h5>' + item.price +'</h5>';
                 render +=              '<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>'
                 render +=         ' </div>';

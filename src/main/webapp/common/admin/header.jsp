@@ -20,7 +20,7 @@
                         Xin chào, <%=SecurityUtil.getInfor().getFullName()%>
                     </a>
                     <li class="light-blue dropdown-modal">
-                        <a href='<c:url value="/thoat"/>'>
+                        <a href='<c:url value="/thoat"/>' class="logout">
                             <i class="ace-icon fa fa-power-off"></i>
                             Thoát
                         </a>
