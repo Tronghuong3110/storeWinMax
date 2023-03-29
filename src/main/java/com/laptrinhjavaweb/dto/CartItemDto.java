@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.dto;
 
 public class CartItemDto {
 	private Long id;
+	private Long cart_id;
 	private Long quantity;
 	private Double total;
 	private ProductDto product;
@@ -28,6 +29,12 @@ public class CartItemDto {
 	}
 	public void setProduct(ProductDto product) {
 		this.product = product;
+	}
+	public Long getCart_id() {
+		return cart_id;
+	}
+	public void setCart_id(Long cart_id) {
+		this.cart_id = cart_id;
 	}
 	
 }

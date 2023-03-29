@@ -36,4 +36,9 @@ public class ProductApi {
 		return list;
 	}
 	
+	@GetMapping("/api/test")
+	public List<ProductDto> test() {
+		return productService.getData();
+	}
+	
 }

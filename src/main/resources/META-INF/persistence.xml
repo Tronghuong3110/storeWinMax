@@ -7,5 +7,9 @@
 		<class>com.laptrinhjavaweb.entity.ProductEntity</class>
 		<class>com.laptrinhjavaweb.entity.CategoryEntity</class>
 		<class>com.laptrinhjavaweb.entity.RoleEntity</class>
+		<class>com.laptrinhjavaweb.entity.CartEntity</class>
+		<class>com.laptrinhjavaweb.entity.CartItem</class>
+		<class>com.laptrinhjavaweb.entity.OrderEntity</class>
+		<class>com.laptrinhjavaweb.entity.OrderDetail</class>
 	</persistence-unit>
 </persistence>

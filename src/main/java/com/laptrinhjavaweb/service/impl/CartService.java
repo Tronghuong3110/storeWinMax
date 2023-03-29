@@ -3,6 +3,8 @@ package com.laptrinhjavaweb.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +49,11 @@ public class CartService implements ICartSrvice{
 		// TH user chua co gio hang
 		if(cart == null) {
 			cart = new CartEntity();
-			user.setCart(cart);
 			cart.setUser(user);
 			cart = cartRepository.save(cart);
 		}
 		// kiem tra xem cart item co chua product can them da co trong gio hang cua user chua
-		CartItem cartItem = cartItemRepository.findByCart_IdAndProduct_Id(cart.getId(), product.getId());
+		CartItem cartItem = cartItemRepository.findByCartIdAndProductId(cart.getId(), product.getId());
 		
 		// truong hop chua co
 		if(cartItem == null) {
@@ -69,7 +70,8 @@ public class CartService implements ICartSrvice{
 			cartItem.setTotal(cartItem.getTotal() + quantity * product.getPrice());
 		}
 		
-		cartItemRepository.save(cartItem);
+		cartItem = cartItemRepository.save(cartItem);
+		
 		
 		return CartItemConverter.toDto(cartItem);
 	}

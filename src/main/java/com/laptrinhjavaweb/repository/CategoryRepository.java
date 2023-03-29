@@ -7,5 +7,5 @@ import com.laptrinhjavaweb.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
-
+	CategoryEntity findOneByCode(String code);
 }

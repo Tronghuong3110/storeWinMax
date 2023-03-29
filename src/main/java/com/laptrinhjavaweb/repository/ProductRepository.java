@@ -1,12 +1,15 @@
 package com.laptrinhjavaweb.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.laptrinhjavaweb.entity.CategoryEntity;
 import com.laptrinhjavaweb.entity.ProductEntity;
+import com.laptrinhjavaweb.entity.TypeEntity;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
@@ -23,4 +26,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
 	
 	@Query(value = "select * from product", nativeQuery = true)
 	public List<ProductEntity> test();
+	
+	public ProductEntity findOneBySizeAndTypeAndCategoryEntity(String size, TypeEntity type, CategoryEntity category);
 }

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,15 +25,15 @@ public class CartItem {
 	@Column(name = "total")
 	private Double total;
 	
-	// 1 - 1 voi product
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_id")
-	private ProductEntity product;
-
 	// n - 1 voi gio hang
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cart_id")
 	private CartEntity cart;
+	
+	// n - 1 voi product
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_Id")
+	private ProductEntity product;
 	
 	public Long getQuantity() {
 		return quantity;
@@ -52,14 +51,6 @@ public class CartItem {
 		this.total = total;
 	}
 
-	public ProductEntity getProduct() {
-		return product;
-	}
-
-	public void setProduct(ProductEntity product) {
-		this.product = product;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +61,14 @@ public class CartItem {
 
 	public void setCart(CartEntity cart) {
 		this.cart = cart;
+	}
+
+	public ProductEntity getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
 	
 }

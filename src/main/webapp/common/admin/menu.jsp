@@ -46,7 +46,21 @@
                 <li>
                     <a href='<c:url value="/admin/product/list?page=1&limit=3"/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
-                        DS bài viết
+                        Danh sách sản phẩm
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href='<c:url value="/admin/categrory"/>'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách thể loại
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href='<c:url value="/admin/type"/>'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách kiểu dáng sản phẩm
                     </a>
                     <b class="arrow"></b>
                 </li>

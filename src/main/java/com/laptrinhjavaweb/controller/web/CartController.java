@@ -13,4 +13,11 @@ public class CartController {
 		ModelAndView mav = new ModelAndView("/web/cart/cartProduct");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/thanh-toan", method = RequestMethod.GET)
+	public ModelAndView paymentPage() {
+		ModelAndView mav = new ModelAndView("/web/cart/payment");
+		return mav;
+	}
+
 }

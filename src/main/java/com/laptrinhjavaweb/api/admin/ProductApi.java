@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,14 +27,20 @@ public class ProductApi {
 	}
 	
 	@PutMapping("/api/admin/product/detail")
-	public ResponseEntity<?> updateProduct(@RequestBody ProductDto product, @RequestParam Long categoryId, @RequestParam Long typeId) {
-		productService.updateOrCreateProduct(product, categoryId, typeId);
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ProductDto updateProduct(@RequestBody ProductDto product, @RequestParam Long categoryId, @RequestParam Long typeId) {
+		ProductDto productDto = productService.updateOrCreateProduct(product, categoryId, typeId);
+		return productDto;
 	}
 	
 	@DeleteMapping("/api/admin/product/detail")
 	public ResponseEntity<?> deleteProduct(@RequestParam Long productId) {
 		productService.deleteProduct(productId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/api/admin/product")
+	public ProductDto createProduct(@RequestBody ProductDto product) {
+		ProductDto productDto = productService.updateOrCreateProduct(product, product.getCategory().getId(), product.getType().getId());
+		return productDto;
 	}
 }

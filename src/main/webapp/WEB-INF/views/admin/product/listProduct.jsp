@@ -4,6 +4,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
+	<title>Danh sách sản phẩm</title>
+</head>
 
 <body>
 	<div class="main-content">
@@ -22,14 +25,30 @@
 						<div class="col-xs-12">
 							<div class="widget-box table-filter">
 								<div class="table-btn-controls">
-									<div class="pull-right tableTools-container">
+									<div class="pull-right tableTools-container" style="height: 37px;">
 										<div class="dt-buttons btn-overlap btn-group">
-											<a flag="info"
-												class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-												data-toggle="tooltip" title='Thêm bài viết' href='#'> <span>
+
+											<!-- search -->
+											<div class="input-group"  style="
+														transform: translateX(-348%);
+														display: flex;
+														margin-top: 5px; ">
+												<div class="form-outline">
+												  <input type="search" id="form1" class="form-control" placeholder="search..." style="width: 255px;"/>
+												</div>
+												<button type="button" class="btn btn-primary">
+												  <i class="fas fa-search"></i>
+												</button>
+											</div>
+
+											<!-- them san pham,  -->
+											<a flag="info" 
+													class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
+													data-toggle="tooltip" href="<c:url value = '/admin/product/form' />"
+													style=" transform: translate(380%, -103%); height: 34px; width: 60px;">
 													<i class="fa fa-plus-circle bigger-110 purple"></i>
-											</span>
 											</a>
+
 										</div>
 									</div>
 								</div>
@@ -45,6 +64,7 @@
 													<th>Kích thước</th>
 													<th>Lỗ ren</th>
 													<th>Hình dạng</th>
+													<th>Giá</th>
 													<th>Ảnh</th>
 													<th>Thao tác</th>
 												</tr>
@@ -57,6 +77,7 @@
 														<td class="tdItem">${item.size }</td>
 														<td class="tdItem">${item.type.loRen }</td>
 														<td class="tdItem">${item.type.shape }</td>
+														<td class="tdItem">${item.price }</td>
 														<td style="width: 374px;"><img
 															style="object-fit: cover; width: 100%;"
 															src="<c:url value = '/template/web/images/products/${item.type.img}' />"
@@ -117,8 +138,8 @@
     });
 
 	// get danh sach category va them vao localStorage
-	getData("/api/category", "categories")
-	getData("/api/type", "types")
+	getData("/api/admin/category", "categories")
+	getData("/api/admin/type", "types")
 
 	function getData(url, name) {
 		$.ajax({
@@ -136,19 +157,22 @@
 	}
 
 	function deleteProduct(productId) {
-		$.ajax({
-			type: "DELETE",
-			url: "/api/admin/product/detail?productId=" + productId,
-			success: function() {
-				alert("Xóa sản phẩm thành công")
-				window.location.href = "/admin/product/list?page=1&limit=3";
-			},
-			error: function() {
-				alert("Xóa sản phẩm không thành công");
-				window.location.href = "/admin/product/list?page=1&limit=3";
-			}
-		})
-		// alert(productId)
+		var check = confirm("Bạn có chắc muốn xóa sản phẩm không?")
+		if(check) {
+			$.ajax({
+				type: "DELETE",
+				url: "/api/admin/product/detail?productId=" + productId,
+				success: function() {
+					alert("Xóa sản phẩm thành công")
+					window.location.href = "/admin/product/list?page=1&limit=3";
+				},
+				error: function() {
+					alert("Xóa sản phẩm không thành công");
+					window.location.href = "/admin/product/list?page=1&limit=3";
+				}
+			})
+		}
+
 	}
 </script>
 </body>

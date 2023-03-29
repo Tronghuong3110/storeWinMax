@@ -30,6 +30,10 @@ public class CartEntity {
 	@OneToMany(mappedBy = "cart" ,fetch = FetchType.LAZY)
 	List<CartItem> cartItems = new ArrayList<>();
 
+	// 1  - n voi order
+	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+	List<OrderEntity> orders = new ArrayList<>();
+	
 	public UserEntity getUser() {
 		return user;
 	}
@@ -49,9 +53,13 @@ public class CartEntity {
 	public void setCartItems(List<CartItem> cartItems) {
 		this.cartItems = cartItems;
 	}
-	
-	public void addCartItem(CartItem cartItem) {
-		this.cartItems.add(cartItem);
-		cartItem.setCart(this);
+
+	public List<OrderEntity> getOrders() {
+		return orders;
 	}
+
+	public void setOrders(List<OrderEntity> orders) {
+		this.orders = orders;
+	}
+	
 }

@@ -6,4 +6,5 @@ import com.laptrinhjavaweb.dto.CategoryDto;
 
 public interface ICategoryService {
 	List<CategoryDto> findAll();
+	CategoryDto save(CategoryDto category);
 }

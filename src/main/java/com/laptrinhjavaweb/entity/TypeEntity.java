@@ -3,7 +3,6 @@ package com.laptrinhjavaweb.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +32,7 @@ public class TypeEntity {
 	private String code;
 	
 	// ket noi 1 - n voi productEntity
-	@OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "type")
 	private List<ProductEntity> products = new ArrayList<>();
 
 	public String getShape() {

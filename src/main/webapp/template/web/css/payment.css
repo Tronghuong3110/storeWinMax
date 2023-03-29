@@ -1,0 +1,123 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.content-payment{
+    margin-top: 28px;
+}
+
+.box-shadow {
+    box-shadow: 0 0 7px 0 rgba(0,0,0,.13);
+}
+
+.input {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px 5px;
+    text-indent: 10px;
+    margin-bottom: 1rem;
+}
+
+.copy-infor,
+.copy-infor:hover {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+}
+
+.infor-customer {
+    padding: 20px;
+    margin-top: 21px;
+}
+
+.infor-address {
+    padding: 0 20px;
+}
+
+.address {
+    height: 48px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.select-address {
+    height: 100%;
+    width: 100%;
+    text-indent: 10px;
+}
+
+.img-exam {
+    object-fit: cover;
+    width: 50px;
+    margin-right: 11px;
+}
+
+.title-payment {
+    display: flex;
+    padding: 12px;
+    margin-bottom: 14px;
+    background-color: #ccc;
+}
+
+.text {
+    font-size: 18px;
+    color: red;
+}
+
+.clear {
+    margin: 12px;
+}
+
+.remove {
+    display: none;
+}
+
+.text-weight-700 {
+    font-weight: 700;
+}
+.item ,
+.block-product-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-img {
+    object-fit: cover;
+    width: 50px;
+}
+
+.list-item {
+    margin-top: 13px;
+    padding: 10px 16px;
+}
+
+.item p {
+    font-size: 15px;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.total-price {
+    background-color: #ccc;
+    display: flex;
+    justify-content: space-between;
+    height: 58px;
+    padding: 5px 6px;
+    align-items: center;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.payment-submit {
+    width: 100%;
+    padding: 11px;
+    font-size: 20px;
+}
+
+.btn-payment {
+    margin-top: 34px;
+    text-align: end;
+}

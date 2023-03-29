@@ -6,19 +6,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.laptrinhjavaweb.converter.ProductConverter;
+import com.laptrinhjavaweb.dto.MyUser;
 import com.laptrinhjavaweb.dto.ProductDto;
 import com.laptrinhjavaweb.entity.CartItem;
 import com.laptrinhjavaweb.entity.CategoryEntity;
 import com.laptrinhjavaweb.entity.ProductEntity;
 import com.laptrinhjavaweb.entity.TypeEntity;
 import com.laptrinhjavaweb.exception.APIException;
+import com.laptrinhjavaweb.exception.ResourceNotFoundException;
 import com.laptrinhjavaweb.repository.CartItemRepository;
 import com.laptrinhjavaweb.repository.CategoryRepository;
 import com.laptrinhjavaweb.repository.ProductRepository;
 import com.laptrinhjavaweb.repository.TypeRepository;
+import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.service.IProductService;
 
 @Service
@@ -98,7 +103,7 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public void updateOrCreateProduct(ProductDto product, Long categoryId, Long typeId){
+	public ProductDto updateOrCreateProduct(ProductDto product, Long categoryId, Long typeId){
 		try {
 			Float price = product.getPrice();
 			if(price < 0) {
@@ -111,12 +116,14 @@ public class ProductService implements IProductService{
 			}
 			
 			else {
-				entity = createProduct(product, categoryId, typeId);
+				entity = createProduct(product);
 			}
 			
-			productRepository.save(entity);
+			entity = productRepository.save(entity);
+			return ProductConverter.toDTO(entity);
 		} catch(Exception e) {
-			throw new APIException(HttpStatus.BAD_REQUEST, "Price id INVALID");
+			e.printStackTrace();
+			throw new APIException(HttpStatus.BAD_REQUEST, "loi");
 		}
 	}
 
@@ -127,6 +134,7 @@ public class ProductService implements IProductService{
 		return true;
 	}
 	
+	// update product
 	private ProductEntity updateProduct(ProductDto product, Long categoryId, Long typeId) {
 		// tim product old
 		ProductEntity oldProductEntity = productRepository.findById(product.getId());
@@ -138,8 +146,33 @@ public class ProductService implements IProductService{
 		return newProduct;
 	}
 	
-	private ProductEntity createProduct(ProductDto product, Long categoryId, Long typeId) {
-		return null;
+	// create product
+	private ProductEntity createProduct(ProductDto product) {
+		ProductEntity entity = null;
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		MyUser myUser = (MyUser) auth.getPrincipal();
+		
+		CategoryEntity category = categoryReposirory.findOne(product.getCategory().getId());
+		if(category == null) {
+			new ResourceNotFoundException("category", "id", product.getCategory().getId());
+		}
+		
+		TypeEntity type = typeRepository.findOne(product.getType().getId());
+		if(type == null) {
+			throw new ResourceNotFoundException("type", "id", product.getType().getId());
+		}
+		String size = product.getSize();
+		entity = productRepository.findOneBySizeAndTypeAndCategoryEntity(size, type, category);
+		if(entity != null) {
+			throw new APIException(HttpStatus.BAD_REQUEST, "could not add product exist");
+		}
+		
+		entity = ProductConverter.toEntity(product);
+		entity.setCategoryEntity(category);
+		entity.setType(type);
+		entity.setCreate_By(myUser.getUsername());
+		return entity;
 	}
 	
 	private TypeEntity checkType(ProductEntity product, Long typeId) {
@@ -158,12 +191,11 @@ public class ProductService implements IProductService{
 
 	@Override
 	public void deleteProduct(Long productId) {
-		List<CartItem> cartItems = cartItemRepository.findAllByProduct_Id(productId);
-		if(cartItems != null) {
-			for(CartItem cartItem : cartItems) {
-				cartItemRepository.delete(cartItem.getId());
-			}
+		List<CartItem> cartItems = cartItemRepository.findByProductId(productId);
+		for(CartItem cartItem : cartItems) {
+			cartItemRepository.delete(cartItem.getId());
 		}
+		
 		productRepository.delete(productId);
 	}
 }

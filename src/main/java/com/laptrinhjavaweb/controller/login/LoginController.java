@@ -25,7 +25,6 @@ public class LoginController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null) {
-			session.removeAttribute("cart");
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		return new ModelAndView("redirect:/trang-chu");

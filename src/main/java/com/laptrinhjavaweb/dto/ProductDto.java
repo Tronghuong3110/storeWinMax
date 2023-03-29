@@ -6,6 +6,7 @@ public class ProductDto{
 	private String name;
 	private Float price;
 	private String size;
+	private String thumbnail;
 	private CategoryDto category;
 	private TypeDto type;
 	public Long getId() {
@@ -43,6 +44,12 @@ public class ProductDto{
 	}
 	public void setType(TypeDto type) {
 		this.type = type;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	
 }

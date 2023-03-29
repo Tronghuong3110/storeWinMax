@@ -6,4 +6,5 @@ import com.laptrinhjavaweb.dto.TypeDto;
 
 public interface ITypeService {
 	List<TypeDto> findAll();
+	TypeDto save(TypeDto type);
 }

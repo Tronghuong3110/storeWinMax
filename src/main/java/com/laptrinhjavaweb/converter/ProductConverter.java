@@ -21,6 +21,7 @@ public class ProductConverter {
 		entity.setName_product(dto.getName());
 		entity.setPrice(dto.getPrice());
 		entity.setSize(dto.getSize());
+		entity.setThumbnail(dto.getThumbnail());
 		return entity;
 	}
 	

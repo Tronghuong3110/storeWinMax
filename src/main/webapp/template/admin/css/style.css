@@ -6,7 +6,7 @@
 .tdItem {
     text-align: center;
     font-size: 35px;
-    transform: translateY(34%);
+    /* transform: translateY(34%); */
 }
 
 .title-header {

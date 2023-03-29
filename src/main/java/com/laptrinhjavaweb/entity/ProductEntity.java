@@ -1,8 +1,9 @@
 package com.laptrinhjavaweb.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,18 +45,18 @@ public class ProductEntity {
 	private String thumbnail;
 	
 	// kết nối với n - 1 voi category
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_Id")
 	private CategoryEntity categoryEntity;
 	
 	//ket noi n - 1 voi typeEntity
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_id")
 	private TypeEntity type;
 	
-	// 1 - 1 voi cart item - cart item dai dien cho 1 san pham trong gio hang
-	@OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private CartItem cartItem;
+	// 1 - n voi cart item - cart item dai dien cho san pham trong gio hang
+	@OneToMany(mappedBy = "product")
+	List<CartItem> cartItems = new ArrayList<>();
 	
 	public String getName_product() {
 		return name_product;
@@ -133,13 +134,12 @@ public class ProductEntity {
 		this.type = type;
 	}
 
-	
-	public CartItem getCartItem() {
-		return cartItem;
+	public List<CartItem> getCartItems() {
+		return cartItems;
 	}
 
-	public void setCartItem(CartItem cartItem) {
-		this.cartItem = cartItem;
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
 	}
 
 }
