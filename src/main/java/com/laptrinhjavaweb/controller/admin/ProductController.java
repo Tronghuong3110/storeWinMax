@@ -68,4 +68,10 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView("/admin/product/addProduct");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/admin/list/bill", method = RequestMethod.GET)
+	public ModelAndView listPageBill() {
+		ModelAndView mav = new ModelAndView("/admin/payment/bill");
+		return mav;
+	}
 }

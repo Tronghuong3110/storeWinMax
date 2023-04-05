@@ -27,11 +27,11 @@ public class CartEntity {
 	private UserEntity user;
 	
 	// 1 - n voi cart item
-	@OneToMany(mappedBy = "cart" ,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cart")
 	List<CartItem> cartItems = new ArrayList<>();
 
 	// 1  - n voi order
-	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cart")
 	List<OrderEntity> orders = new ArrayList<>();
 	
 	public UserEntity getUser() {

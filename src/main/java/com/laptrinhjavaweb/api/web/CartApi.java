@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.dto.CartItemDto;
+import com.laptrinhjavaweb.dto.ResponseDto;
+import com.laptrinhjavaweb.entity.OrderEntity;
 import com.laptrinhjavaweb.service.ICartSrvice;
 
 @RestController(value = "ApiOfCartOfWeb")
@@ -22,7 +24,7 @@ public class CartApi {
 	// them san pham vao gio hang
 	@PostMapping("/api/cart")
 	public CartItemDto addProductToCart(@RequestParam Long productId, @RequestParam Long quantity,@RequestParam Long userId) {
-		CartItemDto cartItem = cartService.addProduct(productId, quantity, userId);
+		CartItemDto cartItem = cartService.addProduct(productId, quantity);
 		return cartItem;
 	}
 	
@@ -33,9 +35,22 @@ public class CartApi {
 		return "sucess";
 	}
 	
+	// get danh sach cartItem
 	@GetMapping("/api/cart")
-	public List<CartItemDto> getListProductOfCartOfUser(@RequestParam Long userId) {
-		List<CartItemDto> list = cartService.getListCartItemOfUser(userId);
-		return list == null ? new ArrayList<>() : list;
+	public List<ResponseDto<String, CartItemDto> > getListProductOfCartOfUser(@RequestParam Integer status) {
+		List<ResponseDto<String, CartItemDto> > result = cartService.getListCartItemOfUser(status);
+		return result;
+	}
+	
+	@GetMapping("/test")
+	public OrderEntity test(@RequestParam Long id) {
+		OrderEntity res = cartService.findOne(id);
+		return res;
+	}
+	
+	@GetMapping("/test/code")
+	public String getCode(@RequestParam Long id) {
+		String res = cartService.getCode(id);
+		return res;
 	}
 }

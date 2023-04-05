@@ -20,4 +20,9 @@ public class CartController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/don-hang", method = RequestMethod.GET)
+	public ModelAndView billPage() {
+		ModelAndView mav = new ModelAndView("/web/cart/bill");
+		return mav;
+	}
 }

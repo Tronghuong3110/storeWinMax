@@ -1,6 +1,5 @@
 package com.laptrinhjavaweb.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +24,9 @@ public class CartItem {
 	@Column(name = "total")
 	private Double total;
 	
+	@Column(name = "status")
+	private Integer status;
+	
 	// n - 1 voi gio hang
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cart_id")
@@ -35,6 +37,19 @@ public class CartItem {
 	@JoinColumn(name = "product_Id")
 	private ProductEntity product;
 	
+	// nhieu cartItem chi co o 1 order
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bill_id")
+	private OrderEntity order;
+	
+	public OrderEntity getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderEntity order) {
+		this.order = order;
+	}
+
 	public Long getQuantity() {
 		return quantity;
 	}
@@ -69,6 +84,14 @@ public class CartItem {
 
 	public void setProduct(ProductEntity product) {
 		this.product = product;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

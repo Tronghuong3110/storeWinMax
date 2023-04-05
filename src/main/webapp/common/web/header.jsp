@@ -16,13 +16,13 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value = '/danh-sach-san-pham'/>">Sản phẩm</a></li>
 				<li class="nav-item"><a class="nav-link" href="#footer">Liên hệ</a></li>
-				
 				<security:authorize access = "isAnonymous()">
 					<li class="nav-item"><a class="nav-link" href="<c:url value = '/dang-nhap' />">Đăng nhập</a></li>
 				</security:authorize>
 				
 				<security:authorize access = "isAuthenticated()">
 					<li class="nav-item"><a class="nav-link" href="<c:url value = '/gio-hang/danh-sach'/>">Giỏ hàng</a></li>
+					<li class="nav-item"><a class="nav-link" href="<c:url value = '/don-hang'/>">Đơn hàng</a></li>
 					<li class="nav-item"><a class="nav-link js-infor" data-user_id="<%=SecurityUtil.getInfor().getId()%>" href="#">Xin chào, <%=SecurityUtil.getInfor().getFullName()%></a></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value = '/thoat' />">Thoát</a></li>
 				</security:authorize>

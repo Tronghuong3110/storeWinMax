@@ -1,12 +1,13 @@
 package com.laptrinhjavaweb.service;
 
-import java.util.HashMap;
+import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import com.laptrinhjavaweb.entity.OrderEntity;
+import com.laptrinhjavaweb.dto.OrderDetailDto;
+import com.laptrinhjavaweb.dto.OrderDto;
 
 public interface IBillService {
 
-	OrderEntity saveToMap(HashMap<Long, OrderEntity> bill, HttpSession session, Long cartId);
+	String generatePaymentCode();
+	OrderDetailDto addBill(OrderDetailDto order, String code);
+	List<OrderDto> getListBill();
 }

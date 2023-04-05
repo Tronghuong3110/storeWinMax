@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file = "/common/taglib.jsp" %>
-<c:url var = "apiDeleteProduct" value = "/api/cart" />
-<c:url var = "apiGetListProduct" value = "/api/cart" />
+<c:url var = "apiProduct" value = "/api/cart" />
 
 <!DOCTYPE html>
 <html>
@@ -115,12 +114,14 @@
 		var TotalPrice = 0;
 		$.ajax({
 			type: "GET",
-			url: "${apiGetListProduct}?userId=" + userId,
+			url: "${apiProduct}?status=0",
 			dataType: "Json",
 			contentType: "application/json; charset=utf-8",
 			success: function(data) {
+				localStorage.setItem("listProductOfCart", JSON.stringify(data))
+				// console.log(data)
 				var html = '';
-				$.each($(data), function(i, item) {
+				$.each($(data[0].values), function(i, item) {
 					html += '<tr>';
 						html += '<td><img width="100px" src="' + "<c:url value = '/template/web/images/products/" + item.product.type.img + "' />" + ' " alt = "ảnh sản phẩm" > </td>'  // ảnh
 						html += '<td>' + item.product.name + '</td>' // ten
@@ -135,7 +136,7 @@
 						html += 			'<button class="mJX7hG btn-minus">'
 						html += 				'<i class="fa-solid fa-minus"></i>'
 						html += 			'</button>'	
-						html += 			'<input class="mJX7hG _8BP9GU quantity" type="text" role="spinbutton" aria-valuenow="9" value="9">'
+						html += 			'<input class="mJX7hG _8BP9GU quantity" name = "quantity" type="text" role="spinbutton" aria-valuenow="9" value="' + item.quantity +'">'
 						html += 			'<button class="mJX7hG" btn-plus>'
 						html += 				'<i class="fa-solid fa-plus"></i>'
 						html += 			'</button>'
@@ -163,7 +164,7 @@
 					$('.cartId').val(data[0].cart_id);
 				}
 				$('.js-render').html(html);
-				$('.js-quantity').html(data.length + ' Sản phẩm')
+				$('.js-quantity').html(data[0].values.length + ' Sản phẩm')
 			},
 			error: function () {
 				alert("Lỗi rồi !!")
@@ -176,7 +177,7 @@
 			if(check == true) {
 				$.ajax({
 					type: "DELETE",
-					url: "${apiDeleteProduct}?cartItemId=" + productId,
+					url: "${apiProduct}?cartItemId=" + productId,
 					success: function(){
 						alert("Cập nhật giò hàng thành công")
 						window.location.href = "/gio-hang/danh-sach";
@@ -188,5 +189,15 @@
 			}
 		}
 
+		// btn tăng giảm số lượng
+		var quantity = $('.input').attr("name");
+		console.log(quantity);
+		$(".btn-minus").click(function() {
+
+		})
+
+		$(".btn-plus").click(function() {
+
+		})
 	</script>
 </body>

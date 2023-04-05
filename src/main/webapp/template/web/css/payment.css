@@ -105,6 +105,7 @@
     height: 58px;
     padding: 5px 6px;
     align-items: center;
+    width: 100%;
 }
 
 .font-weight-500 {
@@ -119,5 +120,5 @@
 
 .btn-payment {
     margin-top: 34px;
-    text-align: end;
+    width: 100%;
 }

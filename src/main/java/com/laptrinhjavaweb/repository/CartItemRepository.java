@@ -1,5 +1,6 @@
 package com.laptrinhjavaweb.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,11 +12,11 @@ import com.laptrinhjavaweb.entity.CartItem;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long>{
-	CartItem findByCartIdAndProductId(Long cart_Id, Long product_Id);
-	List<CartItem> findAllByCart_Id(Long cartId);
+	CartItem findByCartIdAndProductIdAndStatus(Long cart_Id, Long product_Id, int status);
+	List<CartItem> findAllByCart_IdAndStatus(Long cartId, Integer status);
 	List<CartItem> findByProductId(Long productId);
+	List<CartItem> findAllByCart_Id(Long cartId);
 	
-	@Modifying
-	@Query(value = "delete from cartItem where id = ?1", nativeQuery = true)
-	void deleteCartItem(Long id);
+	@Query(value = "select bill_id from cartItem where status = 1 and cart_id = ?1 group by(bill_id)", nativeQuery = true)
+	List<BigDecimal> getListBillIdByStatusAndCartId(Long cartId);
 }

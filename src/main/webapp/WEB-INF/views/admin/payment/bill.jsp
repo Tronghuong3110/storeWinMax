@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Danh sách kiểu dáng sản phẩm</title>
+	<title>Danh sách hóa đơn</title>
     <style>
         .item{
             text-align: center;
@@ -35,7 +35,7 @@
 
 											<!-- search -->
 											<div class="input-group"  style="
-														transform: translateX(-354%);
+														transform: translateX(-348%);
 														display: flex;
 														margin-top: 5px; ">
 												<div class="form-outline">
@@ -45,14 +45,6 @@
 												  <i class="fas fa-search"></i>
 												</button>
 											</div>
-
-											<!-- them loại mặt hàng  -->
-											<a flag="info" 
-													class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-													data-toggle="tooltip" href="<c:url value = '/admin/type/form' />"
-													style=" transform: translate(380%, -103%); height: 34px; width: 60px;">
-													<i class="fa fa-plus-circle bigger-110 purple"></i>
-											</a>
 
 										</div>
 									</div>
@@ -65,9 +57,12 @@
 											<thead>
 												<tr>
 													<th class = "item">ID</th>
-													<th class = "item">Lỗ Ren</th>
-													<th class = "item">Hình dạng</th>
-                                                    <th class = "item">Mã Hình Dạng</th>
+													<th class = "item">Mã đơn hàng</th>
+													<th class = "item">Trạng thái</th>
+                                                    <th class = "item">Tổng tiền</th>
+                                                    <th class = "item">Ngày đặt</th>
+													<th class = "item">Số tiền còn lại</th>
+													<th class = "item">Thao tác</th>
 												</tr>
 											</thead>
 											<tbody id="js-tbody">
@@ -106,26 +101,37 @@
     });
 
 	$.ajax({
-        url: "/api/admin/type",
+        url: "/api/admin/listPayment",
         type: "GET",
         contentType: "application/json; charset=utf-8",
         success: function(data) {
             html = '';
             $.each(data, function(index, value) {
+				var status = '';
                 html += '<tr>';
                 html +=     '<td class = "item">' + value.id + '</td>';
-                html +=     '<td class = "item">' + value.loRen + '</td>';
-                html +=     '<td class = "item">' + value.shape + '</td>';
                 html +=     '<td class = "item">' + value.code + '</td>';
+                html +=     '<td class = "item">' + value.mess + '</td>';
+				html +=     '<td class = "item">' + value.total_payment + '</td>';
+				html +=     '<td class = "item">' + parseDMY(value.date) + '</td>';
+				html +=     '<td class = "item">' + value.unpaid_amount + '</td>';
+				html += 	'<td data-bill =' + value.id + ' class = "item" style = "display: flex; justify-content: space-evenly;"> ' + 
+								'<button class = "btn btn-primary">Xem chi tiết</button>' +
+								'<button class = "btn btn-primary">Xác nhận thanh toán</button>' +
+							'</td>'
                 html += '</tr>';
             }) 
             $('#js-tbody').html(html);
         },
         error: function() {
-            alert("Lỗi get danh sách type")
+            alert("Lỗi get danh sách bill rồi")
         }
     })
 
+	const parseDMY = s => {
+            let [y, m, d] = s.split('-');
+           return d + '-' + m + '-' + y;
+        };
 </script>
 </body>
 </html>

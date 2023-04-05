@@ -10,7 +10,7 @@ public class TypeConverter {
 		dto.setId(entity.getId());
 		dto.setCode(entity.getCode());
 		dto.setLoRen(entity.getLoRen());
-		dto.setShape(entity.getCode());
+		dto.setShape(entity.getShape());
 		dto.setImg(entity.getImg());
 		return dto;
 	}

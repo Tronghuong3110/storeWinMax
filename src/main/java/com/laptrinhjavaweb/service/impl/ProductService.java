@@ -137,7 +137,7 @@ public class ProductService implements IProductService{
 	// update product
 	private ProductEntity updateProduct(ProductDto product, Long categoryId, Long typeId) {
 		// tim product old
-		ProductEntity oldProductEntity = productRepository.findById(product.getId());
+		ProductEntity oldProductEntity = productRepository.findOne(product.getId());
 		TypeEntity type = checkType(oldProductEntity, typeId); // ktra type cua san pham cu va moi co trung nhau khong
 		CategoryEntity category = checkCategory(oldProductEntity, categoryId); // ktra category cua san pham cu va moi co trung nhau khong
 		ProductEntity newProduct = ProductConverter.updateEntity(oldProductEntity, product);
