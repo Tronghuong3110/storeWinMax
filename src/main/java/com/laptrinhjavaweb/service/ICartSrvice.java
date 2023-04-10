@@ -12,4 +12,5 @@ public interface ICartSrvice {
 	void deleteProductFromCart(Long id);
 	OrderEntity findOne(Long id); 
 	String getCode(Long id);
+	void update(Long id, Long quantity);
 }

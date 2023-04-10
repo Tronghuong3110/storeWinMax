@@ -15,11 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.laptrinhjavaweb.converter.CartItemConverter;
 import com.laptrinhjavaweb.converter.OrderConverter;
 import com.laptrinhjavaweb.converter.OrderDetailConverter;
+import com.laptrinhjavaweb.dto.CartItemDto;
 import com.laptrinhjavaweb.dto.MyUser;
 import com.laptrinhjavaweb.dto.OrderDetailDto;
 import com.laptrinhjavaweb.dto.OrderDto;
+import com.laptrinhjavaweb.dto.ResponseDto;
 import com.laptrinhjavaweb.entity.CartEntity;
 import com.laptrinhjavaweb.entity.CartItem;
 import com.laptrinhjavaweb.entity.OrderDetail;
@@ -106,7 +109,7 @@ public class BillService implements IBillService{
 		updateCartItemWithOrderId(cart.getId(), entity);
 		
 		OrderDetail orderDetail = OrderDetailConverter.toEntity(order); // convert from dto to entity
-		orderDetail.setOrderEntity(entity);
+		orderDetail.setOrder(entity);
 		orderDetail = billDetailRepository.save(orderDetail);
 		updateCartItem(cart.getId());
 		return OrderDetailConverter.toDto(orderDetail);
@@ -164,9 +167,48 @@ public class BillService implements IBillService{
 			// TH hop da dat coc
 			else { 
 				percent  *= 100;
-				mess = "Đã thanh toán " + df.format(percent) + "%";
+				mess = "Đã thanh toán " + df.format(100 - percent) + "%";
 			}
 			return mess;
 		}
+
+	@Override
+	public void update(Long id, Double payments) {
+		// tim bill co id
+		OrderEntity entity = billRepository.findOne(id);
+		if(entity == null) {
+			throw new ResourceNotFoundException("bill", "id", id);
+		}
+		Double total =  entity.getTotal_payment();
+		entity.setUnpaid_amount(total - payments);
+		billRepository.save(entity);
+	}
+
+	@Override
+	public ResponseDto<OrderDetailDto, CartItemDto> findOne(Long id) {
+		ResponseDto<OrderDetailDto, CartItemDto> response = new ResponseDto<OrderDetailDto, CartItemDto>();
+		OrderEntity order = billRepository.findOne(id);
+		if(order == null) {
+			throw new ResourceNotFoundException("bill", "id", id);
+		}
+		
+		// tim ra orderDetail
+		OrderDetail orderDetail = billDetailRepository.findByOrder_Id(id);
+		if(orderDetail == null) {
+			throw new ResourceNotFoundException("billDetail", "bill_id", id);
+		}
+		
+		// get list cartItem
+		List<CartItem> listCartItem = cartItemRepository.findAllByOrder_Id(id);
+		List<CartItemDto> listResult = new ArrayList<>();
+		for(CartItem entity : listCartItem) {
+			listResult.add(CartItemConverter.toDto(entity));
+		}
+		response.setName(OrderDetailConverter.toDto(orderDetail));
+		response.setValues(listResult);
+		response.setDate(order.getDate());
+		response.setStatus(order.getCode());
+		return response;
+	}
 	
 }

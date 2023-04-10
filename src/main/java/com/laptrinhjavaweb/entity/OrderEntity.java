@@ -51,7 +51,7 @@ public class OrderEntity {
 	List<CartItem> cartItems = new ArrayList<>();
 	
 	// 1 - 1 voi order detail
-	@OneToOne(mappedBy = "orderEntity")
+	@OneToOne(mappedBy = "order")
 	private OrderDetail orderDetail;
 
 	public Integer getStatus() {

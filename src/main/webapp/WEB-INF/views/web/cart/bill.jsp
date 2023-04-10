@@ -22,11 +22,13 @@
 				<hr class="soften"/>
 
 				<div class="container-table">
+
                 </div>
 
 			</div>
 		</div>
-		<input type="hidden" value="" class="cartId">
+		<input type="hidden" value="" class="cartId" >
+        
 	</div>
 
     <script>
@@ -41,7 +43,7 @@
 			contentType: "application/json; charset=utf-8",
 			success: function(datas) {
                 $.each($(datas), function(i, data) {
-                    html += "<h2 style = 'margin-top: 15px; color: red;'>Mã đơn hàng: " + data.name + '<small class="pull-right js-quantity">Ngày đặt: ' +  parseDMY(data.date) + "</small> </h2>"
+                    html += "<h2 style = 'margin-top: 15px; color: red;'>Mã đơn hàng: " + data.name + '<small class="pull-right js-quantity">Ngày đặt: <input type="date" value="' +  data.date + '" disabled></small> </h2>'
                     html += '<table class="table table-bordered table-condensed " style="margin-left: auto; margin-right: auto;">'
                     html +=     "<thead>"
                     html +=        "<tr>"
@@ -73,7 +75,6 @@
                         totalItem += item.quantity;
                         TotalPrice += item.total;
                     })
-                    console.log(typeof(data.date))
                     html +=         '<tr>';
                     html += 	        '<td colspan="7" class="alignR">Tổng Sản Phẩm:</td>'
                     html += 	        '<td>' + totalItem + '</td>';
@@ -97,6 +98,9 @@
                     // console.log(d)
                 })
 
+                if(html == '') {
+                    html = '<h1> Bạn chưa có đơn hàng nào, bạn có thể mua sản phẩm </h1>'
+                }
                 $(".container-table").html(html);
             },
 			error: function () {
@@ -104,10 +108,10 @@
 			}
 		})
 
-        const parseDMY = s => {
-            let [y, m, d] = s.split('-');
-           return d + '-' + m + '-' + y;
-        };
+        // const parseDMY = s => {
+        //     let [y, m, d] = s.split('-');
+        //    return d + '-' + m + '-' + y;
+        // };
     </script>
 
 </body>

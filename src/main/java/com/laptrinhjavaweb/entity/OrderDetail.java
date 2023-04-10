@@ -52,7 +52,7 @@ public class OrderDetail {
 	
 	@OneToOne
 	@JoinColumn(name = "bill_id")
-	private OrderEntity orderEntity;
+	private OrderEntity order;
 
 	public String getNameReceiver() {
 		return nameReceiver;
@@ -138,20 +138,20 @@ public class OrderDetail {
 		return id;
 	}
 
-	public OrderEntity getOrderEntity() {
-		return orderEntity;
-	}
-
-	public void setOrderEntity(OrderEntity orderEntity) {
-		this.orderEntity = orderEntity;
-	}
-
 	public String getMethodPayment() {
 		return methodPayment;
 	}
 
 	public void setMethodPayment(String methodPayment) {
 		this.methodPayment = methodPayment;
+	}
+
+	public OrderEntity getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderEntity order) {
+		this.order = order;
 	}
 	
 }

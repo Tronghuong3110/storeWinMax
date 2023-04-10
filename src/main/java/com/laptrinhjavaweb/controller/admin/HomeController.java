@@ -11,7 +11,12 @@ public class HomeController {
 	@RequestMapping(value = {"/admin-home"}, method = RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView mav = new ModelAndView("admin/home");
-		
+		return mav;
+	}
+	
+	@RequestMapping(value = {"/admin/payment-detail"}, method = RequestMethod.GET)
+	public ModelAndView paymentDetail() {
+		ModelAndView mav = new ModelAndView("admin/payment/billDetail");
 		return mav;
 	}
 }

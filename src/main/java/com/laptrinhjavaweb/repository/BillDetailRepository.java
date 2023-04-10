@@ -7,5 +7,5 @@ import com.laptrinhjavaweb.entity.OrderDetail;
 
 @Repository
 public interface BillDetailRepository extends JpaRepository<OrderDetail, Long>{
-
+	OrderDetail findByOrder_Id(Long id);
 }

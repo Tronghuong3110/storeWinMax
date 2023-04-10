@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file = "/common/taglib.jsp" %>
+<c:url var="urlAddProduct" value="/api/cart" />
 <c:url var = "apiProduct" value = "/api/cart" />
 
 <!DOCTYPE html>
@@ -136,8 +137,8 @@
 						html += 			'<button class="mJX7hG btn-minus">'
 						html += 				'<i class="fa-solid fa-minus"></i>'
 						html += 			'</button>'	
-						html += 			'<input class="mJX7hG _8BP9GU quantity" name = "quantity" type="text" role="spinbutton" aria-valuenow="9" value="' + item.quantity +'">'
-						html += 			'<button class="mJX7hG" btn-plus>'
+						html += 			'<input class="mJX7hG _8BP9GU quantity" data-id =' + item.id + ' type="text" role="spinbutton" aria-valuenow="9" value="' + item.quantity +'">'
+						html += 			'<button class="mJX7hG btn-plus">'
 						html += 				'<i class="fa-solid fa-plus"></i>'
 						html += 			'</button>'
 						html += 		'</div>'
@@ -189,15 +190,52 @@
 			}
 		}
 
+	</script> 
+
+	<script>
 		// btn tăng giảm số lượng
-		var quantity = $('.input').attr("name");
-		console.log(quantity);
-		$(".btn-minus").click(function() {
+		window.addEventListener("load", test)
+		function test() {
+			$('.input-cart-quantity').each(function() {
+				var input_quantity = $(this).find('input');
+				var btn_minus = $(this).find('.btn-minus');
+				var btn_plus = $(this).find('.btn-plus');
+				var quantity = input_quantity.val();
 
-		})
+				btn_minus.click(function() {
+					if(quantity > 0) {
+						quantity--;
+					}
+					input_quantity.val(quantity);
+					changeQuantity(input_quantity.data("id"), quantity)
+				})
 
-		$(".btn-plus").click(function() {
+				btn_plus.click(function() {
+					quantity++;
+					input_quantity.val(quantity);
+					changeQuantity(input_quantity.data("id"), quantity)
+				}) 
+				input_quantity.change(function() {
+					changeQuantity(input_quantity.data("id"), input_quantity.val())
+				})
+			})
+			
+		}
 
-		})
+		function changeQuantity(id, quantity) {
+			$.ajax({
+				type : 'PUT',
+				url : "${urlAddProduct}?id=" + id + "&quantity=" + quantity,
+				success : function() {
+					alert("Cập nhật giỏ hàng thành công")
+					window.location.href = '/gio-hang/danh-sach';
+				},
+				error: function () {
+					alert("Cập nhật giỏ hàng thất bại")
+				}
+			})
+			console.log(id, quantity)
+		}
+
 	</script>
 </body>

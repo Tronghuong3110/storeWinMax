@@ -11,7 +11,9 @@ public class ResponseDto<T, S> implements Comparable<ResponseDto<T, S>>{
 	private Double unpaid_amount;
 	private List<S> values;
 	
-	
+	public ResponseDto() {
+		super();
+	}
 	public ResponseDto(T name, List<S> values) {
 		super();
 		this.name = name;

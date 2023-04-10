@@ -16,7 +16,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
 	List<CartItem> findAllByCart_IdAndStatus(Long cartId, Integer status);
 	List<CartItem> findByProductId(Long productId);
 	List<CartItem> findAllByCart_Id(Long cartId);
-	
+	List<CartItem> findAllByOrder_Id(Long billId);
 	@Query(value = "select bill_id from cartItem where status = 1 and cart_id = ?1 group by(bill_id)", nativeQuery = true)
 	List<BigDecimal> getListBillIdByStatusAndCartId(Long cartId);
 }

@@ -24,6 +24,7 @@ import com.laptrinhjavaweb.entity.CartItem;
 import com.laptrinhjavaweb.entity.OrderEntity;
 import com.laptrinhjavaweb.entity.ProductEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
+import com.laptrinhjavaweb.exception.ResourceNotFoundException;
 import com.laptrinhjavaweb.repository.BillRepository;
 import com.laptrinhjavaweb.repository.CartItemRepository;
 import com.laptrinhjavaweb.repository.CartRepository;
@@ -198,5 +199,17 @@ public class CartService implements ICartSrvice{
 	@Override
 	public String getCode(Long id) {
 		return "";
+	}
+
+	@Override
+	public void update(Long id, Long quantity) {
+		CartItem cartItem = cartItemRepository.findOne(id);
+		if(cartItem == null) {
+			throw new ResourceNotFoundException("cartItem", "id", id);
+		}
+		
+		cartItem.setQuantity(quantity);
+		cartItem.setTotal((double)quantity * cartItem.getProduct().getPrice());
+		cartItemRepository.save(cartItem);
 	}
 }

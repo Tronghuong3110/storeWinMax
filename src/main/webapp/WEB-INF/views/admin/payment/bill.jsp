@@ -11,6 +11,12 @@
             text-align: center;
             font-size: 24px;
         }
+		.input-date {
+			background-color: #fff !important;
+			border: none;
+			font-size: 2.2rem;
+			text-align: center;
+		}
     </style>
 </head>
 <body>
@@ -73,6 +79,7 @@
 										<input type="hidden" value="" id="page" name="page"/>
 										<input type="hidden" value="" id="limit" name="limit"/>
 									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -107,16 +114,15 @@
         success: function(data) {
             html = '';
             $.each(data, function(index, value) {
-				var status = '';
                 html += '<tr>';
                 html +=     '<td class = "item">' + value.id + '</td>';
-                html +=     '<td class = "item">' + value.code + '</td>';
+                html +=     '<td class = "item"> <a href="#">' + value.code + '</a></td>';
                 html +=     '<td class = "item">' + value.mess + '</td>';
-				html +=     '<td class = "item">' + value.total_payment + '</td>';
-				html +=     '<td class = "item">' + parseDMY(value.date) + '</td>';
-				html +=     '<td class = "item">' + value.unpaid_amount + '</td>';
-				html += 	'<td data-bill =' + value.id + ' class = "item" style = "display: flex; justify-content: space-evenly;"> ' + 
-								'<button class = "btn btn-primary">Xem chi tiết</button>' +
+				html +=     '<td class = "item">' + value.total_payment + 'đ</td>';
+				html +=     '<td class = "item"><input type="date" value="' + value.date + '" disabled class = "input-date"/></td>';
+				html +=     '<td class = "item">' + value.unpaid_amount + 'đ</td>';
+				html += 	'<td data-bill =' + value.id + ' class = "item js-btn-confirm" style = "display: flex; justify-content: space-evenly; border: none;"> ' + 
+								'<button class = "btn btn-primary btn-detail">Xem chi tiết</button>' +
 								'<button class = "btn btn-primary">Xác nhận thanh toán</button>' +
 							'</td>'
                 html += '</tr>';
@@ -127,11 +133,20 @@
             alert("Lỗi get danh sách bill rồi")
         }
     })
+</script>
 
-	const parseDMY = s => {
-            let [y, m, d] = s.split('-');
-           return d + '-' + m + '-' + y;
-        };
+<script>
+	window.addEventListener("load", solve)
+	function solve() {
+		$(".js-btn-confirm").each(function() {
+			var id = $(this).data("bill");
+			var btn_detail = $(this).find('.btn-detail');
+			btn_detail.click(function() {
+				localStorage.setItem("idBill", id)
+				window.location.href = '/admin/payment-detail'
+			})
+		})
+	}
 </script>
 </body>
 </html>
